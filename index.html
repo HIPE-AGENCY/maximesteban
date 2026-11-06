@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Màxim Esteban</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Màxim Esteban: de L'Ametlla del Vallès y la cantera del FC Barcelona a la música, BESTA y HIPE. Una historia contada con el scroll.">
+<meta property="og:title" content="Màxim Esteban">
+<meta property="og:description" content="Jugador. Músico. Emprendedor. De 1998 a hoy.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maximesteban.es/">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23111111'/%3E%3Ctext x='8' y='46' font-family='Arial' font-weight='900' font-size='38' fill='%23F7F6F2'%3EM%3C/text%3E%3Crect x='46' y='38' width='9' height='9' fill='%23C8102E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola página dividida en capítulos fijos (sticky); el scroll vertical es la línea de tiempo y mueve cada escena. Look único, alterna charcoal / off-white por capítulo. */
+:root{
+  --ink:#111111;
+  --paper:#F7F6F2;
+  --red:#C8102E;
+  --stone:#E6E4DD;
+  --mute-on-ink:#A3A29B;
+  --mute-on-paper:#5F5F59;
+  --line-on-ink:#2E2E2C;
+  --line-on-paper:#D0CFCA;
+  --f-display:"Archivo","Arial Black","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Inter Tight","Inter","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --t-hero:clamp(64px,17.5vw,270px);
+  --t-h1:clamp(42px,8.4vw,128px);
+  --t-h2:clamp(28px,4.4vw,60px);
+  --t-lead:clamp(18px,1.7vw,24px);
+  --t-body:clamp(15px,1.15vw,17px);
+  --gut:max(20px,env(safe-area-inset-left,0px));
+  --gut-r:max(20px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--f-body);font-size:var(--t-body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--f-display);font-weight:800;font-stretch:118%;text-transform:uppercase;letter-spacing:-.035em;line-height:.9;margin:0;text-wrap:balance}
+p{margin:0}
+.dot{display:inline-block;width:.16em;height:.16em;background:var(--red);margin-left:.05em;vertical-align:baseline}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.eyebrow b{color:var(--red);font-weight:500;margin-right:.9em}
+.claim{font-family:var(--f-display);font-weight:700;font-stretch:112%;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(13px,1.1vw,15px)}
+.claim::before{content:"";display:inline-block;width:28px;height:1px;background:currentColor;vertical-align:middle;margin-right:12px}
+
+/* chapters */
+.ch{position:relative;--p:0}
+.ch.dark{background:var(--ink);color:var(--paper);--mute:var(--mute-on-ink);--line:var(--line-on-ink)}
+.ch.light{background:var(--paper);color:var(--ink);--mute:var(--mute-on-paper);--line:var(--line-on-paper)}
+.stage{position:relative;min-height:100vh;min-height:100svh;overflow:hidden}
+.wrap{max-width:1320px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gut-r);padding-block:96px 120px;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vw,40px)}
+.lead{font-size:var(--t-lead);line-height:1.45;max-width:34ch}
+.muted{color:var(--mute)}
+
+/* HUD */
+.hud{position:fixed;inset:0;pointer-events:none;z-index:20;mix-blend-mode:difference;color:#fff}
+.bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:21;pointer-events:none}
+.bar i{display:block;height:100%;background:var(--red);transform-origin:0 50%;transform:scaleX(0)}
+.hud-top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(18px + env(safe-area-inset-top,0px)) var(--gut-r) 0 var(--gut);font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.hud-top .brand{font-family:var(--f-display);font-weight:800;font-stretch:118%;letter-spacing:-.01em;font-size:15px}
+.hud-year{position:absolute;right:var(--gut-r);bottom:calc(8px + env(safe-area-inset-bottom,0px));font-family:var(--f-display);font-weight:800;font-stretch:125%;font-size:clamp(56px,12vw,190px);line-height:.8;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+.hud-year-label{position:absolute;left:var(--gut);bottom:calc(20px + env(safe-area-inset-bottom,0px));font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;opacity:.7}
+
+/* 00 intro */
+.intro .wrap{justify-content:center;align-items:flex-start}
+.intro-name{font-size:var(--t-hero);display:flex;flex-direction:column;line-height:.8;opacity:calc(1 - var(--p) * 1.7)}
+.intro-name span{display:block;will-change:transform}
+.intro-name .l1{transform:translate3d(calc(var(--p) * -75vw),0,0)}
+.intro-name .l2{transform:translate3d(calc(var(--p) * 75vw),0,0)}
+.intro-sub{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;opacity:calc(1 - var(--p) * 2.2)}
+.intro-sub .lead{max-width:none}
+.intro-next{display:flex;flex-direction:column;gap:14px}
+.intro-next h2{font-size:var(--t-h2)}
+.cue{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;display:flex;align-items:center;gap:12px;opacity:calc(1 - var(--p) * 4)}
+.cue i{display:block;width:1px;height:42px;background:currentColor;animation:cue 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* 01 origen */
+.split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,80px);align-items:center}
+.split > *{min-width:0}
+.col{display:flex;flex-direction:column;gap:22px}
+.h1{font-size:var(--t-h1)}
+.court{position:relative;width:100%;max-width:520px;aspect-ratio:500/470;justify-self:end}
+.court svg{width:100%;height:100%;color:var(--ink)}
+.court svg path,.court svg rect,.court svg circle,.court svg line{fill:none;stroke:currentColor;stroke-width:2}
+.court svg .hoop{stroke:var(--red);stroke-width:3}
+.court .tag{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;white-space:nowrap;color:var(--mute)}
+.ph{margin:0;position:absolute;inset:0}
+.ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+
+/* fotos de fondo opcionales (assets/img) */
+.bg-ph{margin:0;position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15);opacity:.3;transform:scale(calc(1.12 - var(--p) * .12))}
+.ch.light .bg-ph img{opacity:.16}
+.bg-ph + .wrap{position:relative;z-index:1}
+
+/* 02 masia */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:18px 18px 18px 0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stat + .stat{padding-left:18px;border-left:1px solid var(--line)}
+.stat b{font-family:var(--f-display);font-weight:800;font-stretch:125%;font-size:clamp(40px,6.4vw,96px);line-height:.85;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--mute);line-height:1.35}
+.swap{display:grid;gap:28px}
+.pane{display:flex;flex-direction:column;gap:6px}
+.pane h3{font-size:clamp(16px,1.6vw,20px);font-stretch:112%;letter-spacing:.01em;margin-bottom:8px}
+.row{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+.row .yr{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--mute)}
+.row .what{font-size:clamp(16px,1.5vw,20px);font-weight:500;line-height:1.3}
+.row .badge{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+
+/* 03 ruta */
+.ruta .wrap{max-width:none;padding-right:0}
+.ruta-head{max-width:1320px;width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 40px;padding-right:var(--gut-r)}
+.ruta-head .col{gap:14px}
+.track-view{overflow:visible}
+.track{display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,24px);position:relative;padding-top:30px;padding-right:var(--gut-r)}
+.stop{width:clamp(250px,27vw,360px);flex:none;display:flex;flex-direction:column;gap:10px;position:relative;padding:22px 22px 24px;background:var(--stone);transition:background .4s,color .4s}
+.stop::before{content:"";position:absolute;top:-30px;left:0;width:13px;height:13px;background:var(--paper);border:2px solid var(--ink);transition:background .3s,border-color .3s}
+.stop .when{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em}
+.stop h3{font-size:clamp(24px,2.4vw,34px);line-height:.95}
+.stop .where{font-size:13px;color:var(--mute-on-paper);font-weight:500}
+.stop p{font-size:15px;line-height:1.45}
+.stop.key{background:var(--ink);color:var(--paper)}
+.stop.key .where{color:var(--mute-on-ink)}
+.stop.act::before{background:var(--red);border-color:var(--red)}
+.stop .num{position:absolute;top:18px;right:20px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;opacity:.6}
+
+/* 04 música */
+.wave{display:flex;align-items:center;gap:clamp(3px,.45vw,6px);height:clamp(110px,19vh,200px);width:100%}
+.wave i{flex:1;min-width:2px;height:calc(var(--h,.3) * 100%);background:var(--paper);opacity:.9}
+.wave i:nth-child(7n+3){background:var(--red);opacity:1}
+.tl{display:flex;flex-direction:column}
+
+/* 05 emprender */
+.deck{position:relative;display:grid;gap:14px}
+.card{background:var(--paper);border:1px solid var(--ink);padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--ink)}
+.card .top{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute-on-paper)}
+.card h3{font-size:clamp(24px,2.6vw,38px)}
+.card p{font-size:15px;line-height:1.45;max-width:46ch}
+.card.closed h3{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--red)}
+.card.black{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.card.black .top{color:var(--mute-on-ink)}
+
+/* 06 giro */
+.giro .words{font-family:var(--f-display);font-weight:700;font-stretch:108%;font-size:clamp(28px,4.6vw,68px);line-height:1.04;letter-spacing:-.02em;max-width:20ch;text-wrap:balance}
+.giro .words .w{display:inline-block}
+.giro .end{font-size:var(--t-hero);line-height:.8}
+
+/* 07 hoy */
+.hoy .wrap{justify-content:flex-start;padding-top:120px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+.proj{display:flex;flex-direction:column;gap:14px;padding:26px 24px 24px;border-top:3px solid var(--ink);background:var(--stone);min-width:0}
+.proj .top{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute-on-paper)}
+.proj h3{font-size:clamp(30px,3.4vw,48px)}
+.proj p{font-size:15px;line-height:1.5}
+.proj a.go{margin-top:auto;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;min-height:44px;border-top:1px solid var(--line-on-paper);padding-top:12px}
+.proj a.go:hover{color:var(--red)}
+.proj.lead-proj{border-top-color:var(--red)}
+.contact{background:var(--ink);color:var(--paper);--mute:var(--mute-on-ink)}
+.contact .wrap{min-height:auto;padding-block:110px 140px;gap:34px}
+.contact h2{font-size:var(--t-hero);line-height:.8}
+.links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-on-ink)}
+.links a{display:flex;flex-direction:column;gap:6px;padding:20px 18px 20px 0;text-decoration:none;min-height:44px;min-width:0}
+.links a + a{padding-left:18px;border-left:1px solid var(--line-on-ink)}
+.links a span{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;color:var(--mute-on-ink)}
+.links a strong{font-weight:500;font-size:clamp(16px,1.6vw,21px);overflow-wrap:anywhere}
+.links a:hover strong{color:var(--red)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--mute-on-ink)}
+
+/* ====== motion layer (solo con JS y sin "reducir movimiento") ====== */
+.js .ch.pin{height:calc(var(--len) * 100vh)}
+.js .ch.pin .stage{position:sticky;top:0;height:100vh;height:100svh;min-height:0}
+.js .ch.pin .wrap{height:100%;min-height:0}
+.js .rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.on{opacity:1;transform:none}
+.js .giro .w.rv{transform:translate3d(0,.35em,0);transition-duration:.45s}
+.js .giro .w.rv:not(.on){opacity:.08}
+.js .court svg [pathLength]{stroke-dasharray:1;stroke-dashoffset:calc(max(0, 1 - var(--p) * 1.9))}
+.js .swap{position:relative;min-height:250px}
+.js .swap .pane{position:absolute;inset:0 0 auto 0}
+.js .track{flex-wrap:nowrap;width:max-content;will-change:transform}
+.js .track::before{content:"";position:absolute;top:6px;left:0;right:var(--gut-r);height:2px;background:var(--line-on-paper)}
+.js .deck{display:block;height:min(460px,52vh)}
+.js .deck .card{position:absolute;left:0;right:0;top:0;transform:translate3d(0,60vh,0) rotate(3deg);opacity:0;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .4s}
+.js .deck .card.on{opacity:1}
+.js .deck .card.on:nth-child(1){transform:translate3d(0,0,0) rotate(-1.5deg)}
+.js .deck .card.on:nth-child(2){transform:translate3d(0,46px,0) rotate(1deg)}
+.js .deck .card.on:nth-child(3){transform:translate3d(0,92px,0) rotate(-.6deg)}
+.js .deck .card.on:nth-child(4){transform:translate3d(0,138px,0) rotate(0)}
+
+/* responsive */
+@media (max-width:860px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .court{max-width:300px;justify-self:start}
+  .js .origen .court{position:absolute;right:var(--gut-r);bottom:96px;width:58vw;max-width:260px;opacity:.35;z-index:0}
+  .js .origen .col{position:relative;z-index:1}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stat{padding:14px 10px 14px 0}
+  .stat + .stat{padding-left:10px}
+  .stat span{font-size:12px}
+  .row{grid-template-columns:62px minmax(0,1fr);gap:10px;padding:10px 0}
+  .row .badge{grid-column:2}
+  .grid3{grid-template-columns:minmax(0,1fr)}
+  .links{grid-template-columns:minmax(0,1fr)}
+  .links a + a{padding-left:0;border-left:0;border-top:1px solid var(--line-on-ink)}
+  .wrap{padding-block:84px 104px}
+  .js .deck{height:330px}
+  .js .deck .card.on:nth-child(2){transform:translate3d(0,30px,0) rotate(1deg)}
+  .js .deck .card.on:nth-child(3){transform:translate3d(0,60px,0) rotate(-.6deg)}
+  .js .deck .card.on:nth-child(4){transform:translate3d(0,90px,0) rotate(0)}
+  .card{padding:18px 18px 20px}
+  .card p{font-size:14px}
+  .js .swap{min-height:230px}
+  .stop{width:78vw}
+}
+@media (max-width:860px) and (max-height:720px){
+  .js .emprender .lead{display:none}
+  .js .masia .stats{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .cue i{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar" aria-hidden="true"><i></i></div>
+<div class="hud" aria-hidden="true">
+  <div class="hud-top"><span class="brand">MÀXIM ESTEBAN.</span><span id="hudChap">00 / 07 · INTRO</span></div>
+  <div class="hud-year-label" id="hudLabel">BARCELONA</div>
+  <div class="hud-year" id="hudYear">1998</div>
+</div>
+
+<main>
+
+<!-- 00 INTRO -->
+<section class="ch pin dark intro" style="--len:2" data-from="1998" data-to="1998" data-label="00 / 07 · INTRO" data-place="BARCELONA">
+  <div class="stage"><figure class="bg-ph"><img src="assets/img/00-intro.jpg" alt="" loading="lazy" onerror="this.parentNode.remove()"></figure><div class="wrap">
+    <h1 class="intro-name" aria-label="Màxim Esteban"><span class="l1">MÀXIM</span><span class="l2">ESTEBAN<i class="dot"></i></span></h1>
+    <div class="intro-sub">
+      <p class="lead">Jugador. Músico. Emprendedor.</p>
+      <span class="eyebrow">1998 — 2026</span>
+    </div>
+    <div class="intro-next rv" data-at=".5">
+      <span class="eyebrow"><b>●</b>Una historia en 7 capítulos</span>
+      <h2>De una canasta de pueblo a mi propio equipo<i class="dot"></i></h2>
+    </div>
+    <div class="cue"><i></i>SCROLL</div>
+  </div></div>
+</section>
+
+<!-- 01 ORIGEN -->
+<section class="ch pin light origen" style="--len:2.4" data-from="1998" data-to="2009" data-label="01 / 07 · ORIGEN" data-place="L'AMETLLA DEL VALLÈS">
+  <div class="stage"><figure class="bg-ph"><img src="assets/img/01-origen.jpg" alt="" loading="lazy" onerror="this.parentNode.remove()"></figure><div class="wrap">
+    <div class="split">
+      <div class="col">
+        <span class="eyebrow rv" data-at="0"><b>01</b>Origen · 1998 — 2009</span>
+        <h2 class="h1 rv" data-at=".05">L'Ametlla del Vallès<i class="dot"></i></h2>
+        <p class="lead rv" data-at=".2">Nací en Barcelona en 1998 y crecí en L'Ametlla del Vallès. Mi primer equipo fue el del pueblo: el CB L'Ametlla.</p>
+        <p class="claim rv" data-at=".45">Every story starts on a local court</p>
+      </div>
+      <div class="court">
+        <svg viewBox="0 0 500 470" aria-hidden="true">
+          <rect x="10" y="10" width="480" height="450" pathLength="1"/>
+          <rect x="170" y="10" width="160" height="190" pathLength="1"/>
+          <circle cx="250" cy="200" r="60" pathLength="1"/>
+          <path d="M40 10 V140 A220 220 0 0 0 460 140 V10" pathLength="1"/>
+          <path d="M190 460 A60 60 0 0 1 310 460" pathLength="1"/>
+          <line x1="215" y1="40" x2="285" y2="40" pathLength="1"/>
+          <circle class="hoop" cx="250" cy="55" r="11" pathLength="1"/>
+        </svg>
+        <span class="tag">CB L'AMETLLA</span>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 02 FC BARCELONA -->
+<section class="ch pin dark masia" style="--len:4" data-from="2009" data-to="2019" data-label="02 / 07 · FC BARCELONA" data-place="FC BARCELONA">
+  <div class="stage"><figure class="bg-ph"><img src="assets/img/02-barca.jpg" alt="" loading="lazy" onerror="this.parentNode.remove()"></figure><div class="wrap">
+    <div class="col" style="gap:16px">
+      <span class="eyebrow rv" data-at="0"><b>02</b>FC Barcelona · 2009 — 2019</span>
+      <h2 class="h1 rv" data-at=".03">De los 11 a los 21<i class="dot"></i></h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><b data-count="10" data-at=".06">10</b><span>temporadas en la cantera del Barça</span></div>
+      <div class="stat"><b data-count="4" data-at=".1">4</b><span>temporadas en LEB Oro con el filial</span></div>
+      <div class="stat"><b>U16—U20</b><span>internacional con España</span></div>
+    </div>
+    <div class="swap">
+      <div class="pane rv" data-at=".14" data-until=".56">
+        <h3>Palmarés con el Barça</h3>
+        <div class="row rv" data-at=".18"><span class="yr">FCB</span><span class="what">Adidas Next Generation Tournament</span><span class="badge">Campeón</span></div>
+        <div class="row rv" data-at=".24"><span class="yr">FCB</span><span class="what">Campeonato de España junior</span><span class="badge">Campeón</span></div>
+        <div class="row rv" data-at=".3"><span class="yr">FCB</span><span class="what">Torneo Euroleague L'Hospitalet</span><span class="badge">2× Subcampeón</span></div>
+      </div>
+      <div class="pane rv" data-at=".56">
+        <h3>Con la selección española</h3>
+        <div class="row rv" data-at=".6"><span class="yr">2014</span><span class="what">Europeo U16 · Letonia</span><span class="badge">Bronce</span></div>
+        <div class="row rv" data-at=".66"><span class="yr">2016</span><span class="what">Europeo U18 · División A</span><span class="badge">España</span></div>
+        <div class="row rv" data-at=".72"><span class="yr">2017</span><span class="what">Mundial U19 · FIBA</span><span class="badge">5 — 2</span></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 03 LA RUTA -->
+<section class="ch pin light ruta" style="--len:5.2" data-from="2019" data-to="2026" data-label="03 / 07 · LA RUTA" data-place="ON THE ROAD">
+  <div class="stage"><div class="wrap">
+    <div class="ruta-head">
+      <div class="col">
+        <span class="eyebrow"><b>03</b>La ruta · 2019 — 2026</span>
+        <h2 class="h1">7 paradas<i class="dot"></i></h2>
+      </div>
+      <p class="lead" style="max-width:30ch">Salí de casa para jugar: Girona, Suecia, Benicarló, Elche, China y vuelta a Barcelona.</p>
+    </div>
+    <div class="track-view">
+      <div class="track">
+        <article class="stop"><span class="num">01</span><span class="when">2019 — 20</span><h3>Bàsquet Girona</h3><span class="where">Girona · LEB Plata</span><p>Primera temporada lejos del Barça.</p></article>
+        <article class="stop key"><span class="num">02</span><span class="when">2020 — 21</span><h3>KFUM Umeå</h3><span class="where">Suecia · Basketligan</span><p>Mi mejor año en números: 10,9 puntos por partido y récord personal de 23 puntos.</p></article>
+        <article class="stop"><span class="num">03</span><span class="when">2021 — 23</span><h3>CB Benicarló</h3><span class="where">Castellón · LEB Plata</span><p>Además de jugar, llevé la comunicación del club.</p></article>
+        <article class="stop"><span class="num">04</span><span class="when">2023 — 24</span><h3>CBI Elche</h3><span class="where">Alicante</span><p>Jugador y director de marketing del club.</p></article>
+        <article class="stop key"><span class="num">05</span><span class="when">Verano</span><h3>China</h3><span class="where">Asia</span><p>Un verano jugando al otro lado del mundo.</p></article>
+        <article class="stop"><span class="num">06</span><span class="when">2024 — 25</span><h3>CB Santfeliuenc</h3><span class="where">Sant Feliu de Llobregat</span><p>De vuelta a casa. También llevé sus redes.</p></article>
+        <article class="stop"><span class="num">07</span><span class="when">2025 — 26</span><h3>CB L'Hospitalet</h3><span class="where">Tercera FEB</span><p>Mi última temporada. Último partido en abril de 2026.</p></article>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 04 MÚSICA -->
+<section class="ch pin dark musica" style="--len:3" data-from="2019" data-to="2026" data-label="04 / 07 · MÚSICA" data-place="MIENTRAS TANTO">
+  <div class="stage"><figure class="bg-ph"><img src="assets/img/04-musica.jpg" alt="" loading="lazy" onerror="this.parentNode.remove()"></figure><div class="wrap">
+    <div class="col" style="gap:16px">
+      <span class="eyebrow rv" data-at="0"><b>04</b>Mientras tanto · 2019 — 2026</span>
+      <h2 class="h1 rv" data-at=".03">La otra cancha<i class="dot"></i></h2>
+    </div>
+    <div class="wave" aria-hidden="true"></div>
+    <div class="tl">
+      <div class="row rv" data-at=".14"><span class="yr">2019</span><span class="what">Lanzo mi primera canción como Maxim Esteban.</span><span class="badge">Debut</span></div>
+      <div class="row rv" data-at=".3"><span class="yr">2019</span><span class="what">Me formo en producción musical (CPA Salduie) y mezcla (Soma).</span><span class="badge">Estudio</span></div>
+      <div class="row rv" data-at=".46"><span class="yr">2026</span><span class="what">Monto BESTA, una banda de pop-rock, con mi mejor amigo. <a href="https://besta.es" target="_blank" rel="noopener">besta.es</a></span><span class="badge">BESTA</span></div>
+    </div>
+    <p class="claim rv" data-at=".62">Same rhythm. New stage</p>
+  </div></div>
+</section>
+
+<!-- 05 EMPRENDER -->
+<section class="ch pin light emprender" style="--len:3.2" data-from="2018" data-to="2025" data-label="05 / 07 · EMPRENDER" data-place="FUERA DE LA PISTA">
+  <div class="stage"><div class="wrap">
+    <div class="split">
+      <div class="col">
+        <span class="eyebrow rv" data-at="0"><b>05</b>Emprender · 2018 — 2025</span>
+        <h2 class="h1 rv" data-at=".03">Primero, una marca<i class="dot"></i></h2>
+        <p class="lead rv" data-at=".08">Antes del covid lancé X by Màxim, mi marca de ropa. El covid la cerró. Lo aprendido se quedó y lo usé para construir lo siguiente.</p>
+      </div>
+      <div class="deck">
+        <article class="card closed rv" data-at=".12"><div class="top"><span>Marca de ropa</span><span>— 2020</span></div><h3>X by Màxim</h3><p>Mi primer emprendimiento. Cerró con la pandemia.</p></article>
+        <article class="card rv" data-at=".3"><div class="top"><span>Formación</span><span>2018 — 2023</span></div><h3>Aprender el oficio</h3><p>Comunicación digital (FC Barcelona), programa +QESPORT (ESERP) y CFGS en Marketing y Publicidad (UOC X).</p></article>
+        <article class="card rv" data-at=".48"><div class="top"><span>Clubes</span><span>2022 — 2025</span></div><h3>Desde el vestuario</h3><p>Comunicación y marketing en Benicarló, CBI Elche y Santfeliuenc mientras seguía jugando.</p></article>
+        <article class="card black rv" data-at=".66"><div class="top"><span>Agencia</span><span>2022</span></div><h3>HIPE<i class="dot"></i></h3><p>Fundo HIPE | High Performance Agency. Brands made to perform.</p></article>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 06 EL GIRO -->
+<section class="ch pin dark giro" style="--len:2.6" data-from="2026" data-to="2026" data-label="06 / 07 · EL GIRO" data-place="ABRIL 2026">
+  <div class="stage"><figure class="bg-ph"><img src="assets/img/06-giro.jpg" alt="" loading="lazy" onerror="this.parentNode.remove()"></figure><div class="wrap">
+    <span class="eyebrow"><b>06</b>El giro · Abril 2026</span>
+    <p class="words" data-words=".04" data-words-end=".62">Abril de 2026. Último partido con el CB L'Hospitalet. Cuelgo las zapatillas para jugar en otro campo: la música y mi trabajo.</p>
+    <h2 class="end rv" data-at=".72">New game<i class="dot"></i></h2>
+  </div></div>
+</section>
+
+<!-- 07 HOY -->
+<section class="ch light hoy" data-from="2026" data-to="2026" data-label="07 / 07 · HOY" data-place="BARCELONA">
+  <div class="stage"><div class="wrap">
+    <div class="col" style="gap:16px">
+      <span class="eyebrow"><b>07</b>Hoy · 2026</span>
+      <h2 class="h1 io">Where I play now<i class="dot"></i></h2>
+    </div>
+    <div class="grid3">
+      <article class="proj lead-proj io">
+        <div class="top"><span>Fundador · Director</span><span>Desde 2022</span></div>
+        <h3>HIPE</h3>
+        <p>Agencia de estrategia, branding, comunicación, digital y content &amp; experience. Everything. Working together.</p>
+        <a class="go" href="https://hipeagency.es" target="_blank" rel="noopener">hipeagency.es ↗</a>
+      </article>
+      <article class="proj io">
+        <div class="top"><span>Head of Operations</span><span>Desde 2024</span></div>
+        <h3>Placenet</h3>
+        <p>Operaciones, automatizaciones y Customer Success en una startup tecnológica. De la idea a la ejecución.</p>
+        <span class="go" style="margin-top:auto;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;border-top:1px solid var(--line-on-paper);padding-top:12px;min-height:44px">OPERATIONS · CUSTOMER SUCCESS</span>
+      </article>
+      <article class="proj io">
+        <div class="top"><span>Banda · Cofundador</span><span>Desde 2026</span></div>
+        <h3>BESTA</h3>
+        <p>Pop-rock con guitarras, bajo y batería. Una banda entre amigos con ganas de llenar salas.</p>
+        <a class="go" href="https://besta.es" target="_blank" rel="noopener">besta.es ↗</a>
+      </article>
+    </div>
+  </div></div>
+</section>
+
+<section class="contact" data-from="2026" data-to="2026">
+  <div class="wrap">
+    <span class="eyebrow">¿Hablamos?</span>
+    <h2 class="io">Let's talk<i class="dot"></i></h2>
+    <div class="links io">
+      <a href="mailto:maxim@hipeagency.es"><span>EMAIL</span><strong>maxim@hipeagency.es</strong></a>
+      <a href="https://www.instagram.com/maximesteban" target="_blank" rel="noopener"><span>INSTAGRAM</span><strong>@maximesteban</strong></a>
+      <a href="https://www.linkedin.com/in/maximesteban" target="_blank" rel="noopener"><span>LINKEDIN</span><strong>in/maximesteban</strong></a>
+    </div>
+    <div class="foot"><span>© 2026 MÀXIM ESTEBAN · BARCELONA</span><span>MAXIMESTEBAN.ES</span></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hudYear=document.getElementById('hudYear'),hudChap=document.getElementById('hudChap'),hudLabel=document.getElementById('hudLabel');
+  var bar=document.querySelector('.bar i');
+  var clamp=function(v,a,b){return Math.min(b===undefined?1:b,Math.max(a||0,v));};
+
+  // Barras de la onda (música)
+  var wave=document.querySelector('.wave'),bars=[];
+  if(wave){
+    var n=window.innerWidth<700?36:64;
+    for(var i=0;i<n;i++){var b=document.createElement('i');var h=.18+.55*Math.abs(Math.sin(i*.9))*(.5+.5*Math.sin(i*.23));b.style.setProperty('--h',h.toFixed(3));wave.appendChild(b);bars.push(b);}
+  }
+
+  // Revelados con IntersectionObserver para las zonas no fijas
+  var ioEls=document.querySelectorAll('.io');
+  if(!reduce&&'IntersectionObserver' in window){
+    ioEls.forEach(function(el){el.classList.add('rv');});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.2});
+    ioEls.forEach(function(el){io.observe(el);});
+  }
+
+  if(reduce) return; // versión estática y legible
+
+  // Frase palabra a palabra
+  document.querySelectorAll('[data-words]').forEach(function(el){
+    var s=+el.dataset.words,e=+el.dataset.wordsEnd,txt=el.textContent.trim(),words=txt.split(/\s+/);
+    el.setAttribute('aria-label',txt);el.textContent='';
+    words.forEach(function(w,i){var sp=document.createElement('span');sp.className='w rv';sp.setAttribute('aria-hidden','true');sp.dataset.at=(s+(e-s)*i/words.length).toFixed(3);sp.textContent=w;el.appendChild(sp);el.appendChild(document.createTextNode(' '));});
+  });
+
+  root.classList.add('js');
+
+  var chs=[].slice.call(document.querySelectorAll('.ch')),M=[],vh=innerHeight,dirty=true,waveOn=false;
+  function measure(){
+    vh=innerHeight;
+    M=chs.map(function(c){
+      var r=c.getBoundingClientRect();
+      return {c:c,top:r.top+scrollY,h:c.offsetHeight,pin:c.classList.contains('pin'),
+        rv:[].slice.call(c.querySelectorAll('[data-at]')),
+        cnt:[].slice.call(c.querySelectorAll('[data-count]')),
+        track:c.querySelector('.track'),stops:[].slice.call(c.querySelectorAll('.stop')),
+        wave:c.querySelector('.wave'),from:+c.dataset.from,to:+c.dataset.to,last:-1};
+    });
+    dirty=true;
+  }
+  function update(){
+    var y=scrollY,docH=Math.max(1,root.scrollHeight-vh),cur=null,curP=0;
+    bar.style.transform='scaleX('+clamp(y/docH).toFixed(4)+')';
+    waveOn=false;
+    for(var k=0;k<M.length;k++){
+      var m=M[k],span=m.pin?Math.max(1,m.h-vh):Math.max(1,m.h),p=clamp((y-m.top)/span);
+      var near=y+vh>m.top-50&&y<m.top+m.h+50;
+      if(y+vh*.5>=m.top){cur=m;curP=p;}
+      if(m.wave&&near) waveOn=p;
+      if(!near&&m.last===p) continue;
+      m.last=p;
+      m.c.style.setProperty('--p',p.toFixed(4));
+      for(var j=0;j<m.rv.length;j++){var el=m.rv[j],at=+el.dataset.at,un=el.dataset.until?+el.dataset.until:9;el.classList.toggle('on',p>=at&&p<un);}
+      for(j=0;j<m.cnt.length;j++){var c=m.cnt[j];c.textContent=Math.round(+c.dataset.count*clamp((p-(+c.dataset.at||0))/.22));}
+      if(m.track){
+        var view=m.track.parentNode.getBoundingClientRect().width,max=Math.max(0,m.track.scrollWidth-view);
+        m.track.style.transform='translate3d('+(-max*clamp((p-.08)/.84)).toFixed(1)+'px,0,0)';
+        var cx=innerWidth*.42;
+        m.stops.forEach(function(s){var r=s.getBoundingClientRect();s.classList.toggle('act',r.left<cx&&r.right>cx*.35);});
+      }
+    }
+    if(cur){
+      var yr=Math.round(cur.from+(cur.to-cur.from)*curP);
+      if(hudYear.textContent!=yr) hudYear.textContent=yr;
+      if(cur.c.dataset.label&&hudChap.textContent!==cur.c.dataset.label) hudChap.textContent=cur.c.dataset.label;
+      if(cur.c.dataset.place) hudLabel.textContent=cur.c.dataset.place;
+    }
+  }
+  function tick(t){
+    if(dirty){update();dirty=false;}
+    if(waveOn!==false&&bars.length){
+      var lvl=.25+.75*clamp(waveOn*1.6);
+      for(var i=0;i<bars.length;i++){
+        var h=.08+lvl*(.45+.45*Math.sin(t/260+i*.55)*Math.cos(t/730+i*.17));
+        bars[i].style.setProperty('--h',clamp(h,.04,1).toFixed(3));
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  addEventListener('scroll',function(){dirty=true;},{passive:true});
+  addEventListener('resize',measure);
+  measure();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measure);
+  addEventListener('load',measure);
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
